@@ -1,1 +1,26 @@
+title: Software Requirements
+tagline: Agile Software Requirement Lifecycle
+description: Learn about agile software requirements, from idea to production.
+template:
+  name: software-requirements
+  repo: software-requirements-template
+steps:
+  - title: New Requests
+    event: issue_comment.created
+    actions:
+      - type: createIssue
+        title: New Issue
+        body: an-issue.md
+        # Store the response for this new issue by assigning an action_id
+        action_id: new_issue
 
+        # Close the issue the user just commented on
+      - type: closeIssue
+
+        # Respond in the issue the user just commented on
+      - type: respond
+        with: a-response.md
+        # Include a `data` object to provide some template variables
+        data:
+          # Reference the response of the `new_issue` action
+          nextIssueUrl: '%actions.new_issue.data.html_url%'
